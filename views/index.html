@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+  <title>YAML と JSON を相互変換するやつ</title>
+  <meta charset="utf-8">
+  <style>
+    .app {
+      display: inline-block;
+    }
+    .textarea {
+      width: 45%;
+      height: 1000px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <form action="/transform" method="post">
+      <div class="input-text">
+        <textarea
+          name="content"
+          class="textarea"
+          placeholder="変換したい JSON または YAML を貼り付けてください"></textarea>
+      </div>
+      <div class="transform-option">
+        <input type="radio" name="src" value="JSON" checked>JSON → YAML
+        <br>
+        <input type="radio" name="src" value="YAML">YAML → JSON
+        <br>
+        <br>
+        <input type="submit" value="変換">
+      </div>
+    </form>
+    <div class="output-text">
+      <textarea
+        name="result"
+        class="textarea"
+        placeholder="結果"> {{ result }} </textarea>
+    </div>
+  </div>
+</body>

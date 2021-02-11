@@ -5,20 +5,12 @@ import os
 import sys
 import traceback
 
-from ruamel.yaml import YAML
 from typing import List
+from util import yaml_init
 
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
-
-
-def yaml_init():
-    yaml = YAML()
-    yaml.allow_unicode = True
-    yaml.default_flow_style = False
-    yaml.indent(mapping=2, sequence=4, offset=2)
-    return yaml
 
 
 def get_filename(path: str) -> List[str]:
@@ -30,7 +22,7 @@ def json_to_yaml(path: str) -> None:
     try:
         with open(path, mode='r', encoding='utf-8') as in_f:
             d = json.load(in_f)
-        with open(f'{get_filename(path)[0]}.yml', mode='w', encoding='utf-8') as out_f:
+        with open(f'./out/{get_filename(path)[0]}_out.yml', mode='w', encoding='utf-8') as out_f:
             yaml.dump(d, out_f)
         logger.info('Parse to YAML succeeded.')
     except FileNotFoundError:
@@ -42,7 +34,7 @@ def yaml_to_json(path: str) -> None:
     try:
         with open(path, mode='r', encoding='utf-8') as in_f:
             d = yaml.load(in_f)
-        with open(f'{get_filename(path)[0]}.json', mode='w', encoding='utf-8') as out_f:
+        with open(f'./out/{get_filename(path)[0]}_out.json', mode='w', encoding='utf-8') as out_f:
             json.dump(d, out_f, indent=2, ensure_ascii=False)
         logger.info('Parse to JSON succeeded.')
     except FileNotFoundError:
